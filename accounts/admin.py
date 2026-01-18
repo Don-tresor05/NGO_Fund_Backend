@@ -84,6 +84,7 @@ class UserAdmin(BaseUserAdmin, admin.ModelAdmin,):
     actions = [
         "disable_users",
         "enable_users",
+        "approve_pending_users",
     ]
     
     def save_model(self, request, obj, form, change):
@@ -95,6 +96,14 @@ class UserAdmin(BaseUserAdmin, admin.ModelAdmin,):
 
     def enable_users(self, request, queryset):
         queryset.update(is_active=True)
+
+    def approve_pending_users(self, request, queryset):
+        """Approve pending users (non-DONOR users who need admin approval)"""
+        pending_users = queryset.filter(is_active=False)
+        count = pending_users.update(is_active=True)
+        self.message_user(request, f"{count} users have been approved and activated.")
+    
+    approve_pending_users.short_description = "Approve selected pending users"
 
 
 

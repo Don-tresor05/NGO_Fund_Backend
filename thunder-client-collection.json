@@ -1,0 +1,196 @@
+{
+  "client": "Thunder Client",
+  "collectionName": "NGO Fund Backend API",
+  "dateExported": "2024-01-01T00:00:00.000Z",
+  "version": "1.1",
+  "folders": [
+    {
+      "id": "auth-folder",
+      "name": "Authentication",
+      "containerId": "",
+      "created": "2024-01-01T00:00:00.000Z",
+      "sortNum": 10000
+    },
+    {
+      "id": "users-folder", 
+      "name": "User Management",
+      "containerId": "",
+      "created": "2024-01-01T00:00:00.000Z",
+      "sortNum": 20000
+    }
+  ],
+  "requests": [
+    {
+      "id": "register-user",
+      "name": "Register User",
+      "url": "{{base_url}}/api/accounts/user/",
+      "method": "POST",
+      "sortNum": 10000,
+      "created": "2024-01-01T00:00:00.000Z",
+      "modified": "2024-01-01T00:00:00.000Z",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"email\": \"donor@example.com\",\n  \"first_name\": \"John\",\n  \"last_name\": \"Doe\",\n  \"password\": \"SecurePass123!\",\n  \"re_password\": \"SecurePass123!\",\n  \"phone_number\": \"+254712345678\",\n  \"user_type\": \"DONOR\"\n}",
+        "form": []
+      },
+      "tests": [],
+      "containerId": "auth-folder"
+    },
+    {
+      "id": "login-user",
+      "name": "Login User",
+      "url": "{{base_url}}/api/accounts/login/",
+      "method": "POST",
+      "sortNum": 20000,
+      "created": "2024-01-01T00:00:00.000Z",
+      "modified": "2024-01-01T00:00:00.000Z",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"email\": \"donor@example.com\",\n  \"password\": \"SecurePass123!\"\n}",
+        "form": []
+      },
+      "tests": [
+        {
+          "type": "set-env-var",
+          "custom": "json.access",
+          "action": "setto",
+          "value": "{{access_token}}"
+        }
+      ],
+      "containerId": "auth-folder"
+    },
+    {
+      "id": "get-profile",
+      "name": "Get User Profile",
+      "url": "{{base_url}}/api/accounts/user/profile/",
+      "method": "GET",
+      "sortNum": 30000,
+      "created": "2024-01-01T00:00:00.000Z",
+      "modified": "2024-01-01T00:00:00.000Z",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{access_token}}"
+        }
+      ],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "",
+        "form": []
+      },
+      "tests": [],
+      "containerId": "users-folder"
+    },
+    {
+      "id": "list-users",
+      "name": "List All Users (Admin Only)",
+      "url": "{{base_url}}/api/accounts/user/",
+      "method": "GET",
+      "sortNum": 40000,
+      "created": "2024-01-01T00:00:00.000Z",
+      "modified": "2024-01-01T00:00:00.000Z",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{admin_token}}"
+        }
+      ],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "",
+        "form": []
+      },
+      "tests": [],
+      "containerId": "users-folder"
+    },
+    {
+      "id": "get-user-detail",
+      "name": "Get User Detail",
+      "url": "{{base_url}}/api/accounts/user/{{user_id}}/",
+      "method": "GET",
+      "sortNum": 50000,
+      "created": "2024-01-01T00:00:00.000Z",
+      "modified": "2024-01-01T00:00:00.000Z",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{access_token}}"
+        }
+      ],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "",
+        "form": []
+      },
+      "tests": [],
+      "containerId": "users-folder"
+    },
+    {
+      "id": "update-user",
+      "name": "Update User",
+      "url": "{{base_url}}/api/accounts/user/{{user_id}}/",
+      "method": "PUT",
+      "sortNum": 60000,
+      "created": "2024-01-01T00:00:00.000Z",
+      "modified": "2024-01-01T00:00:00.000Z",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{access_token}}"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"first_name\": \"Jane\",\n  \"last_name\": \"Smith\",\n  \"phone_number\": \"+254712345679\"\n}",
+        "form": []
+      },
+      "tests": [],
+      "containerId": "users-folder"
+    },
+    {
+      "id": "delete-user",
+      "name": "Delete User",
+      "url": "{{base_url}}/api/accounts/user/{{user_id}}/",
+      "method": "DELETE",
+      "sortNum": 70000,
+      "created": "2024-01-01T00:00:00.000Z",
+      "modified": "2024-01-01T00:00:00.000Z",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{access_token}}"
+        }
+      ],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "",
+        "form": []
+      },
+      "tests": [],
+      "containerId": "users-folder"
+    }
+  ]
+}

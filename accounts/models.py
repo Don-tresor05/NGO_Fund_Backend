@@ -67,11 +67,11 @@ class User(AbstractUser, PermissionsMixin):
     first_name = models.CharField(max_length=30)
     # Last name field with max length of 30 characters
     last_name = models.CharField(max_length=30)
-    # Phone number field unique with exactly 15 characters
+    # Phone number field unique with exactly 13 characters
     phone_number = models.CharField(
-        ("phone number"), max_length=15, unique=True, validators=[
-            MinLengthValidator(15),
-            MaxLengthValidator(15)
+        ("phone number"), max_length=13, unique=True, validators=[
+            MinLengthValidator(13),
+            MaxLengthValidator(13)
         ]
     )
     # User type field with choices

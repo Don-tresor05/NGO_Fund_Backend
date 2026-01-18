@@ -33,10 +33,21 @@ class UserViewset(viewsets.ModelViewSet):
         
         
     def create(self, request, *args, **kwargs):
-        serializers=UserSerializers(data=request.data)
+        serializers = UserSerializers(data=request.data)
         serializers.is_valid(raise_exception=True)
-        serializers.save()
-        return Response(serializers.data)
+        user = serializers.save()
+        
+        # Return different messages based on user type
+        if user.user_type == 'DONOR':
+            return Response({
+                **serializers.data,
+                "message": "Account created successfully. You can now login."
+            }, status=status.HTTP_201_CREATED)
+        else:
+            return Response({
+                **serializers.data,
+                "message": "Account created successfully. Please wait for admin approval before you can login."
+            }, status=status.HTTP_201_CREATED)
 
 class LoginMixin(viewsets.ViewSet):
     custom_serializer = CustomTokenObtainPairSerializer

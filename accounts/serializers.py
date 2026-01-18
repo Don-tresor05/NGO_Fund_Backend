@@ -29,11 +29,18 @@ class UserSerializers(serializers.ModelSerializer):
         extra_kwargs={"password": {"write_only": True}, "re_password": {"write_only": True}}
 
     def create(self, validated_data):
-        user=User.objects.create_user(
-            email=self.validated_data['email'], first_name=self.validated_data['first_name'],
-            last_name=self.validated_data['last_name'], password=self.validated_data['password'],
-            phone_number=self.validated_data.get('phone_number'),
-            user_type=self.validated_data.get('user_type','DONOR'),
+        # Only donors can self-register and be active immediately
+        user_type = validated_data.get('user_type', 'DONOR')
+        is_active = True if user_type == 'DONOR' else False
+        
+        user = User.objects.create_user(
+            email=validated_data['email'], 
+            first_name=validated_data['first_name'],
+            last_name=validated_data['last_name'], 
+            password=validated_data['password'],
+            phone_number=validated_data.get('phone_number'),
+            user_type=user_type,
+            is_active=is_active
         )
         return user
     
