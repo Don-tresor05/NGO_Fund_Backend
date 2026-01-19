@@ -61,7 +61,7 @@ python manage.py runserver
 #### 4. List All Users (Admin Only)
 - **URL:** `GET /api/accounts/user/`
 - **Headers:** `Authorization: Bearer {{admin_token}}`
-- **Permission:** Requires `IsRegistrar` permission (Admin users)
+- **Permission:** Requires ADMIN user type
 
 #### 5. Get User Detail
 - **URL:** `GET /api/accounts/user/{user_id}/`
