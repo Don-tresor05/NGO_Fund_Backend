@@ -3,6 +3,10 @@ import os
 import environ
 from pathlib import Path
 import pymysql
+# Cloudinary configuration
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 
 pymysql.install_as_MySQLdb()
 
@@ -35,6 +39,10 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_simplejwt',
     'accounts',
+    'donors',
+    'cloudinary',
+    'cloudinary_storage',
+    'django_celery_beat',
 ]
 
 MIDDLEWARE = [
@@ -65,6 +73,18 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'ngofund.wsgi.application'
+
+# Cloudinary configuration
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': env("CLOUDINARY_CLOUD_NAME"),
+    'API_KEY': env("CLOUDINARY_API_KEY"),
+    'API_SECRET': env("CLOUDINARY_API_SECRET"),
+}
+
+# Celery Configuration(for 6hours reports)
+CELERY_BROKER_URL = env('REDIS_URL')
+CELERY_RESULT_BACKEND = env('REDIS_URL')
+CELERY_BEAT_SCHEDULE = {'generate_reports': {'task': 'donors.tasks.generate_periodic_reports','schedule': 21600.0,},}
 
 
 # Database
